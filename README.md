@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jain Agency MVP Website
 
-## Getting Started
+Production-ready MVP website for Jain Agency built with Next.js App Router, MongoDB, Mongoose, and Tailwind CSS.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Public website
+  - Home page with hero, services, and featured projects
+  - Projects listing page and project details page
+  - About page
+  - Contact form storing inquiries in MongoDB
+- Admin portal
+  - Simple email/password login
+  - Dashboard analytics (inquiries and projects count)
+  - Add, edit, delete projects
+  - View customer inquiries
+- Developer features
+  - App Router + API routes
+  - MongoDB with Mongoose models
+  - Environment-based configuration
+  - Toast notifications and loading states
+  - Responsive UI
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Folder Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `app/`: routes, pages, layouts, and API route handlers
+- `components/`: reusable UI components and admin widgets
+- `lib/`: shared logic (DB connection, auth, helpers, validation)
+- `models/`: Mongoose schemas for Projects and Messages
+- `.env.example`: required environment variables template
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup (Local)
 
-## Learn More
+1. Install dependencies:
+   - `npm install`
+2. Create environment file:
+   - Copy `.env.example` to `.env.local`
+3. Fill variables in `.env.local`:
+   - `MONGODB_URI`
+   - `MONGODB_DB_NAME`
+   - `JWT_SECRET`
+   - `ADMIN_EMAIL`
+   - `ADMIN_PASSWORD` or `ADMIN_PASSWORD_HASH`
+4. Start development server:
+   - `npm run dev`
+5. Open app:
+   - http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+## MongoDB Connection Guide
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create a MongoDB Atlas account and cluster.
+2. Create a database user with read/write permissions.
+3. Add your IP to Network Access allowlist.
+4. Get the connection string from Atlas and place it in `MONGODB_URI`.
+5. Optionally set `MONGODB_DB_NAME=jain_agency`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Admin Access
 
-## Deploy on Vercel
+- Visit `/admin/login`
+- Login using `ADMIN_EMAIL` and `ADMIN_PASSWORD` (or hashed password).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev`: start development server
+- `npm run lint`: run ESLint
+- `npm run build`: create production build
+- `npm run start`: start production server
