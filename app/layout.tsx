@@ -34,6 +34,28 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Jain Agency" }],
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Jain Agency | Website Development Services",
+    description:
+      "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+    siteName: "Jain Agency",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 1200,
+        alt: "Jain Agency logo",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Jain Agency | Website Development Services",
+    description:
+      "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+    images: ["/logo.png"],
+  },
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",
