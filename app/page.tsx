@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-jain-agency.svg",
+        url: "/logo.png",
         width: 1200,
-        height: 630,
-        alt: "Jain Agency website development and portfolio preview",
+        height: 1200,
+        alt: "Jain Agency logo",
       },
     ],
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Website Development for Schools, Manufacturers & Industrial Businesses",
     description:
       "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
-    images: ["/og-jain-agency.svg"],
+    images: ["/logo.png"],
   },
 };
 
