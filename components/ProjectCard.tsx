@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { normalizeImageSrc } from "@/lib/image";
 import { type ProjectDTO } from "@/lib/serializers";
 
 type Props = {
@@ -9,22 +11,23 @@ export function ProjectCard({ project }: Props) {
   const imageContent = (
     <>
       {project.images[0] ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={project.images[0]}
+        <Image
+          src={normalizeImageSrc(project.images[0])}
           alt={project.title}
-          className="h-full w-full object-cover brightness-110 transition duration-500 group-hover:scale-[1.04]"
+          fill
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          className="object-cover brightness-110 transition duration-500 group-hover:scale-[1.04]"
         />
       ) : (
-        <div className="h-full w-full bg-gradient-to-br from-blue-100 via-white to-indigo-100" />
+        <div className="h-full w-full bg-linear-to-br from-blue-100 via-white to-indigo-100" />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/16 via-transparent to-white/8" />
+      <div className="absolute inset-0 bg-linear-to-t from-white/16 via-transparent to-white/8" />
     </>
   );
 
   return (
     <article className="group surface overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_48px_-28px_rgba(10,100,210,0.45)]">
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+      <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
         {project.websiteUrl ? (
           <a
             href={project.websiteUrl}
@@ -50,7 +53,7 @@ export function ProjectCard({ project }: Props) {
           {project.description}
         </p>
         <Link
-          href={`/projects/${project.id}`}
+          href={`/projects/${project.slug || project.id}`}
           className="inline-flex items-center gap-1 text-sm font-semibold text-blue-700 transition hover:gap-2"
         >
           View details <span aria-hidden>→</span>

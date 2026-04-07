@@ -1,13 +1,71 @@
+import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProjectById } from "@/lib/data";
+import { normalizeImageSrc } from "@/lib/image";
+import { slugify } from "@/lib/slug";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
 
+const categoryKeywords: Record<string, string[]> = {
+  Schools: [
+    "school website development",
+    "education website",
+    "admission website",
+  ],
+  Hospitals: [
+    "hospital website design",
+    "healthcare website",
+    "medical website",
+  ],
+  "Private Businesses": [
+    "business website design",
+    "corporate website",
+    "service website",
+  ],
+  Manufacturers: [
+    "manufacturer website design",
+    "industrial business website",
+    "product showcase website",
+  ],
+  Industrial: [
+    "industrial website developer",
+    "factory website design",
+    "B2B website",
+  ],
+  Corporate: [
+    "corporate website design",
+    "company website",
+    "business portfolio website",
+  ],
+  "E-commerce": [
+    "ecommerce website design",
+    "online store website",
+    "shopping website",
+  ],
+  Healthcare: [
+    "healthcare website design",
+    "medical practice website",
+    "clinic website",
+  ],
+  "Real Estate": [
+    "real estate website design",
+    "property website",
+    "agent website",
+  ],
+  Education: [
+    "education website design",
+    "school website development",
+    "learning website",
+  ],
+  Other: ["custom website development", "business website design India"],
+};
+
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const project = await getProjectById(id);
 
@@ -17,9 +75,38 @@ export async function generateMetadata({ params }: Props) {
     };
   }
 
+  const projectSlug = project.slug || slugify(project.title) || id;
+  const keywords = [
+    project.title,
+    project.category,
+    ...(categoryKeywords[project.category] || []),
+    "Jain Agency",
+  ];
+
   return {
-    title: project.title,
+    title: `${project.title} | ${project.category} Website Project`,
     description: project.description,
+    keywords,
+    authors: [{ name: "Jain Agency" }],
+    robots: { index: true, follow: true },
+    alternates: { canonical: `/projects/${projectSlug}` },
+    openGraph: {
+      title: `${project.title} | Jain Agency`,
+      description: project.description,
+      url: `/projects/${projectSlug}`,
+      siteName: "Jain Agency",
+      type: "article",
+      images: project.images[0]
+        ? [
+            {
+              url: normalizeImageSrc(project.images[0]),
+              width: 1200,
+              height: 630,
+              alt: project.title,
+            },
+          ]
+        : undefined,
+    },
   };
 }
 
@@ -74,7 +161,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 index === 0 ? "md:col-span-2" : ""
               }`}
             >
-              <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100 via-white to-orange-100">
+              <div className="relative aspect-16/10 overflow-hidden rounded-2xl bg-linear-to-br from-blue-100 via-white to-orange-100">
                 {image ? (
                   project.websiteUrl ? (
                     <a
@@ -82,20 +169,23 @@ export default async function ProjectDetailPage({ params }: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Open ${project.title} website`}
+                      className="block h-full w-full"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={image}
+                      <Image
+                        src={normalizeImageSrc(image)}
                         alt={`${project.title} image ${index + 1}`}
-                        className="h-full w-full object-cover"
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover"
                       />
                     </a>
                   ) : (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={image}
+                    <Image
+                      src={normalizeImageSrc(image)}
                       alt={`${project.title} image ${index + 1}`}
-                      className="h-full w-full object-cover"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
                     />
                   )
                 ) : null}

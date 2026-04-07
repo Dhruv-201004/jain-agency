@@ -2,6 +2,7 @@ import { getAdminSession } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { validateProjectPayload } from "@/lib/project-validation";
 import { toProjectDTO } from "@/lib/serializers";
+import { generateUniqueProjectSlug } from "@/lib/slug";
 import { Project } from "@/models/Project";
 import { NextResponse } from "next/server";
 
@@ -54,10 +55,28 @@ export async function PUT(
     }
 
     await connectDB();
-    const project = await Project.findByIdAndUpdate(id, validated.data, {
-      new: true,
-      runValidators: true,
-    });
+    const currentProject = await Project.findById(id);
+
+    if (!currentProject) {
+      return NextResponse.json(
+        { error: "Project not found." },
+        { status: 404 },
+      );
+    }
+
+    const nextSlug =
+      currentProject.title === validated.data.title && currentProject.slug
+        ? currentProject.slug
+        : await generateUniqueProjectSlug(validated.data.title, id);
+
+    const project = await Project.findByIdAndUpdate(
+      id,
+      { ...validated.data, slug: nextSlug },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
 
     if (!project) {
       return NextResponse.json(

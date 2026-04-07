@@ -5,7 +5,9 @@ export interface IProject extends Document {
   title: string;
   description: string;
   category: (typeof PROJECT_CATEGORIES)[number];
+  slug: string;
   websiteUrl: string;
+  featured: boolean;
   images: string[];
   createdAt: Date;
 }
@@ -27,10 +29,20 @@ const ProjectSchema = new Schema<IProject>(
       required: true,
       enum: PROJECT_CATEGORIES,
     },
+    slug: {
+      type: String,
+      default: "",
+      trim: true,
+      index: true,
+    },
     websiteUrl: {
       type: String,
       default: "",
       trim: true,
+    },
+    featured: {
+      type: Boolean,
+      default: false,
     },
     images: {
       type: [String],

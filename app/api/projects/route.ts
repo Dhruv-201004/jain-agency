@@ -2,6 +2,7 @@ import { getAdminSession } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { validateProjectPayload } from "@/lib/project-validation";
 import { toProjectDTO } from "@/lib/serializers";
+import { generateUniqueProjectSlug } from "@/lib/slug";
 import { Project } from "@/models/Project";
 import { NextResponse } from "next/server";
 
@@ -35,7 +36,8 @@ export async function POST(req: Request) {
     }
 
     await connectDB();
-    const project = await Project.create(validated.data);
+    const slug = await generateUniqueProjectSlug(validated.data.title);
+    const project = await Project.create({ ...validated.data, slug });
 
     return NextResponse.json(
       { project: toProjectDTO(project) },

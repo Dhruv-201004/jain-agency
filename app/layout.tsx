@@ -16,19 +16,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://jain-agency.vercel.app",
+  ),
   title: {
     default: "Jain Agency | Website Development Services",
     template: "%s | Jain Agency",
   },
   description:
-    "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses.",
+    "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
   keywords: [
-    "website development",
-    "school website",
-    "manufacturer website",
-    "industrial website",
+    "website development for schools in India",
+    "industrial website developer",
+    "manufacturer business website design",
+    "affordable business website services India",
     "Jain Agency",
   ],
+  authors: [{ name: "Jain Agency" }],
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

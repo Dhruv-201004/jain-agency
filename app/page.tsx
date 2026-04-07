@@ -1,20 +1,59 @@
-﻿import Link from "next/link";
-import { getAllProjects } from "@/lib/data";
+﻿import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { getFeaturedProjects } from "@/lib/data";
 import { ProjectCard } from "@/components/ProjectCard";
 
-export const metadata = {
-  title: "Home",
-  description: "Grow your business online with Jain Agency.",
+export const metadata: Metadata = {
+  title:
+    "Website Development for Schools, Manufacturers & Industrial Businesses",
+  description:
+    "Jain Agency designs affordable websites for schools, manufacturers, and industrial businesses across India to help them grow online.",
+  keywords: [
+    "website development for schools in India",
+    "industrial website developer",
+    "manufacturer business website design",
+    "affordable business website services India",
+    "website design India",
+  ],
+  authors: [{ name: "Jain Agency" }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/" },
+  openGraph: {
+    title:
+      "Website Development for Schools, Manufacturers & Industrial Businesses",
+    description:
+      "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
+    url: "/",
+    siteName: "Jain Agency",
+    type: "website",
+    images: [
+      {
+        url: "/og-jain-agency.svg",
+        width: 1200,
+        height: 630,
+        alt: "Jain Agency website development and portfolio preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Website Development for Schools, Manufacturers & Industrial Businesses",
+    description:
+      "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
+    images: ["/og-jain-agency.svg"],
+  },
 };
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const projects = await getAllProjects();
+  const featuredProjects = await getFeaturedProjects();
 
   return (
     <div className="space-y-20 pb-10">
-      <section className="reveal relative overflow-hidden rounded-[2rem] border border-blue-100 bg-white p-6 shadow-[0_30px_60px_-42px_rgba(17,24,39,0.28)] sm:p-8 lg:p-10">
+      <section className="reveal relative overflow-hidden rounded-4xl border border-blue-100 bg-white p-6 shadow-[0_30px_60px_-42px_rgba(17,24,39,0.28)] sm:p-8 lg:p-10">
         <div className="absolute -top-24 -right-20 h-72 w-72 rounded-full bg-blue-100/80 blur-3xl" />
         <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-indigo-100/70 blur-3xl" />
 
@@ -61,22 +100,25 @@ export default async function Home() {
 
           <div className="reveal-delay relative lg:col-span-5">
             <div className="surface overflow-hidden rounded-[1.8rem] p-3">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.2rem]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="relative aspect-4/5 overflow-hidden rounded-2xl">
+                <Image
                   src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80"
                   alt="Business team discussing website planning"
-                  className="h-full w-full object-cover brightness-110"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover brightness-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-white/25 via-transparent to-white/8" />
+                <div className="absolute inset-0 bg-linear-to-t from-white/25 via-transparent to-white/8" />
               </div>
             </div>
 
             <div className="surface absolute -bottom-3 -left-4 hidden w-52 rounded-2xl p-3 sm:block sm:-left-8">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=520&q=80"
                 alt="Modern office workspace"
+                width={500}
+                height={240}
                 className="h-24 w-full rounded-xl object-cover"
               />
               <p className="mt-2 text-xs font-medium text-slate-600">
@@ -155,13 +197,14 @@ export default async function Home() {
           </Link>
         </div>
 
-        {projects.length === 0 ? (
+        {featuredProjects.length === 0 ? (
           <div className="surface rounded-3xl border-dashed p-10 text-center text-slate-500">
-            Projects will appear here once added from the admin dashboard.
+            Projects will appear here once they are marked as featured from the
+            admin dashboard.
           </div>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((project) => (
+            {featuredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
           </div>
@@ -169,7 +212,7 @@ export default async function Home() {
       </section>
 
       <section className="reveal">
-        <div className="rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-50 via-white to-indigo-50 p-7 sm:p-9">
+        <div className="rounded-3xl border border-blue-200 bg-linear-to-r from-blue-50 via-white to-indigo-50 p-7 sm:p-9">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="max-w-2xl">
               <p className="eyebrow">Ready to start</p>

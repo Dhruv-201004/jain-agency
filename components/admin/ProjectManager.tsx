@@ -15,6 +15,7 @@ type FormState = {
   description: string;
   category: string;
   websiteUrl: string;
+  featured: boolean;
   imagesText: string;
 };
 
@@ -23,6 +24,7 @@ const initialForm: FormState = {
   description: "",
   category: PROJECT_CATEGORIES[0],
   websiteUrl: "",
+  featured: false,
   imagesText: "",
 };
 
@@ -32,10 +34,22 @@ function formToPayload(form: FormState) {
     description: form.description,
     category: form.category,
     websiteUrl: form.websiteUrl,
+    featured: form.featured,
     images: form.imagesText
       .split("\n")
       .map((item) => item.trim())
       .filter(Boolean),
+  };
+}
+
+function projectToPayload(project: ProjectDTO, featured: boolean) {
+  return {
+    title: project.title,
+    description: project.description,
+    category: project.category,
+    websiteUrl: project.websiteUrl,
+    featured,
+    images: project.images,
   };
 }
 
@@ -53,6 +67,7 @@ export function ProjectManager({ initialProjects }: Props) {
       description: project.description,
       category: project.category,
       websiteUrl: project.websiteUrl || "",
+      featured: project.featured || false,
       imagesText: project.images.join("\n"),
     });
   }
@@ -83,11 +98,13 @@ export function ProjectManager({ initialProjects }: Props) {
         return;
       }
 
-      const newProject = data.project as ProjectDTO;
+      const savedProject = data.project as ProjectDTO;
       setProjects((prev) =>
         isEditing
-          ? prev.map((item) => (item.id === newProject.id ? newProject : item))
-          : [newProject, ...prev],
+          ? prev.map((project) =>
+              project.id === savedProject.id ? savedProject : project,
+            )
+          : [savedProject, ...prev],
       );
       toast.success(isEditing ? "Project updated." : "Project created.");
       resetForm();
@@ -112,11 +129,37 @@ export function ProjectManager({ initialProjects }: Props) {
       return;
     }
 
-    setProjects((prev) => prev.filter((item) => item.id !== id));
+    setProjects((prev) => prev.filter((project) => project.id !== id));
     if (form.id === id) {
       resetForm();
     }
     toast.success("Project deleted.");
+  }
+
+  async function toggleFeatured(project: ProjectDTO, featured: boolean) {
+    const res = await fetch(`/api/projects/${project.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(projectToPayload(project, featured)),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.error || "Failed to update featured status.");
+      return;
+    }
+
+    const updatedProject = data.project as ProjectDTO;
+    setProjects((prev) =>
+      prev.map((item) =>
+        item.id === updatedProject.id ? updatedProject : item,
+      ),
+    );
+    toast.success(
+      featured
+        ? "Added to featured projects."
+        : "Removed from featured projects.",
+    );
   }
 
   return (
@@ -185,6 +228,18 @@ export function ProjectManager({ initialProjects }: Props) {
           />
         </label>
 
+        <label className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-700">
+          <input
+            type="checkbox"
+            checked={form.featured}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, featured: e.target.checked }))
+            }
+            className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+          />
+          <span>Show in Featured Projects on the homepage</span>
+        </label>
+
         <label className="block space-y-2">
           <span className="text-sm font-medium text-slate-700">
             Images (one URL per line)
@@ -240,18 +295,40 @@ export function ProjectManager({ initialProjects }: Props) {
                     <p className="text-base font-semibold text-slate-900">
                       {project.title}
                     </p>
-                    <p className="text-xs text-blue-700">{project.category}</p>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      <p className="text-xs text-blue-700">
+                        {project.category}
+                      </p>
+                      {project.featured ? (
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800">
+                          Featured
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                   <div className="flex gap-2">
+                    <label className="inline-flex items-center gap-2 rounded-md border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-700">
+                      <input
+                        type="checkbox"
+                        checked={project.featured}
+                        onChange={(e) =>
+                          toggleFeatured(project, e.target.checked)
+                        }
+                        className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      Featured
+                    </label>
                     <button
+                      type="button"
                       onClick={() => startEdit(project)}
                       className="btn-outline px-3 py-1.5 text-xs"
                     >
                       Edit
                     </button>
                     <button
+                      type="button"
                       onClick={() => onDelete(project.id)}
-                      className="rounded-md border border-rose-700 px-3 py-1.5 text-xs font-semibold text-rose-300 transition hover:bg-rose-700/20"
+                      className="rounded-md border border-rose-700 px-3 py-1.5 text-xs font-semibold text-rose-600 transition hover:bg-rose-50"
                     >
                       Delete
                     </button>
@@ -260,16 +337,24 @@ export function ProjectManager({ initialProjects }: Props) {
                 <p className="mt-2 line-clamp-2 text-sm text-slate-600">
                   {project.description}
                 </p>
-                {project.websiteUrl ? (
+                <div className="mt-2 flex flex-wrap items-center gap-3">
                   <a
-                    href={project.websiteUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex text-xs font-semibold text-blue-700 hover:text-blue-600"
+                    href={`/projects/${project.slug || project.id}`}
+                    className="inline-flex text-xs font-semibold text-slate-600 hover:text-slate-900"
                   >
-                    Open website ↗
+                    View page ↗
                   </a>
-                ) : null}
+                  {project.websiteUrl ? (
+                    <a
+                      href={project.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex text-xs font-semibold text-blue-700 hover:text-blue-600"
+                    >
+                      Open website ↗
+                    </a>
+                  ) : null}
+                </div>
               </div>
             ))}
           </div>

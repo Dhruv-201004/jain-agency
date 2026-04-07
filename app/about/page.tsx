@@ -1,6 +1,18 @@
-export const metadata = {
-  title: "About",
-  description: "About Jain Agency and our website development expertise.",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Jain Agency",
+  description:
+    "Learn how Jain Agency helps schools, manufacturers, and industrial businesses build trust and grow online with thoughtful websites.",
+  keywords: [
+    "about Jain Agency",
+    "website development for schools in India",
+    "industrial website developer",
+    "manufacturer business website design",
+  ],
+  authors: [{ name: "Jain Agency" }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

@@ -1,10 +1,22 @@
+import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard";
 import { PROJECT_CATEGORIES } from "@/lib/constants";
 import { getAllProjects } from "@/lib/data";
 
-export const metadata = {
-  title: "Projects",
-  description: "Explore portfolio projects delivered by Jain Agency.",
+export const metadata: Metadata = {
+  title: "Portfolio of Website Projects",
+  description:
+    "Explore Jain Agency’s previous work for schools, manufacturers, and industrial businesses across India.",
+  keywords: [
+    "portfolio website projects",
+    "previous work",
+    "website development for schools in India",
+    "industrial website developer",
+    "manufacturer business website design",
+  ],
+  authors: [{ name: "Jain Agency" }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/projects" },
 };
 
 export const dynamic = "force-dynamic";

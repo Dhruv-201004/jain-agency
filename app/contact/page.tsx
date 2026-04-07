@@ -1,8 +1,19 @@
+import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 
-export const metadata = {
-  title: "Contact",
-  description: "Contact Jain Agency for your website development needs.",
+export const metadata: Metadata = {
+  title: "Contact Website Developer",
+  description:
+    "Contact Jain Agency for affordable website development services in India for schools, manufacturers, and industrial businesses.",
+  keywords: [
+    "contact website developer",
+    "affordable business website services India",
+    "website development for schools in India",
+    "industrial website developer",
+  ],
+  authors: [{ name: "Jain Agency" }],
+  robots: { index: true, follow: true },
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
