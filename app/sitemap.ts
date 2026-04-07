@@ -4,7 +4,7 @@ import { getProjectSlug } from "@/lib/data";
 import { Project } from "@/models/Project";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://jain-agency.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://thejainagency.shop";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrls: MetadataRoute.Sitemap = [

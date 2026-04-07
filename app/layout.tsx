@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://jain-agency.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://thejainagency.shop",
   ),
   title: {
     default: "Jain Agency | Website Development Services",
