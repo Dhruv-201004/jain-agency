@@ -6,7 +6,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 
 export const metadata: Metadata = {
   title:
-    "Website Development for Schools, Manufacturers & Industrial Businesses",
+    "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
   description:
     "Jain Agency designs affordable websites for schools, manufacturers, and industrial businesses across India to help them grow online.",
   keywords: [
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title:
-      "Website Development for Schools, Manufacturers & Industrial Businesses",
+      "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
     description:
       "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
     url: "/",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Website Development for Schools, Manufacturers & Industrial Businesses",
+      "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
     description:
       "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
     images: ["/logo.png"],
