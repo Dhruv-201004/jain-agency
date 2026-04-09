@@ -36,6 +36,14 @@ export default function ContactPage() {
             Service Areas: Schools, Hospitals, private businesses,
             Manufacturers, Industrial Businesses and many more...
           </p>
+          <a
+            href="https://wa.me/919761854883"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-4 inline-flex px-5 py-2.5 text-sm"
+          >
+            Contact Me Directly on WhatsApp
+          </a>
         </div>
         <div className="surface rounded-2xl p-4 text-sm text-slate-600">
           Most responses are shared within one business day.
