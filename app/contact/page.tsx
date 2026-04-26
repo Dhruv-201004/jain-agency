@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
+import { ImageModal } from "@/components/ImageModal";
 
 export const metadata: Metadata = {
   title: "Contact Website Developer",
@@ -46,7 +47,8 @@ export default function ContactPage() {
           </a>
         </div>
         <div className="surface rounded-2xl p-4 text-sm text-slate-600">
-          Most responses are shared within one business day.
+          <p>Most responses are shared within one business day.</p>
+          <ImageModal />
         </div>
       </div>
       <div className="reveal-delay lg:col-span-6">
