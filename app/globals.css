@@ -49,6 +49,44 @@ html {
   backdrop-filter: blur(12px);
 }
 
+.motion-surface {
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease,
+    background-color 260ms ease;
+}
+
+.motion-surface:hover {
+  transform: translateY(-4px);
+  border-color: rgba(10, 100, 210, 0.22);
+  box-shadow: 0 24px 48px -32px rgba(14, 23, 38, 0.44);
+}
+
+.profile-image {
+  transition:
+    transform 520ms ease,
+    filter 520ms ease;
+}
+
+.profile-image-wrap:hover .profile-image {
+  transform: scale(1.04);
+  filter: saturate(1.06) contrast(1.02);
+}
+
+.highlight-pill {
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.highlight-pill:hover {
+  transform: translateX(4px);
+  border-color: rgba(10, 100, 210, 0.28);
+  background: rgba(255, 255, 255, 0.92);
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--brand), #2f86f6);
   color: #ffffff;
@@ -115,6 +153,10 @@ html {
   animation: fadeUp 0.95s ease both;
 }
 
+.reveal-soft {
+  animation: fadeScale 0.8s ease both;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -126,13 +168,37 @@ html {
   }
 }
 
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
   .reveal,
-  .reveal-delay {
+  .reveal-delay,
+  .reveal-soft {
     animation: none;
+  }
+
+  .motion-surface,
+  .profile-image,
+  .highlight-pill {
+    transition: none;
+  }
+
+  .motion-surface:hover,
+  .profile-image-wrap:hover .profile-image,
+  .highlight-pill:hover {
+    transform: none;
   }
 }

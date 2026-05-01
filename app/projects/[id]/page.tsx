@@ -80,21 +80,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     project.title,
     project.category,
     ...(categoryKeywords[project.category] || []),
-    "Jain Agency",
+      "The Jain Agency",
   ];
 
   return {
     title: `${project.title} | ${project.category} Website Project`,
     description: project.description,
     keywords,
-    authors: [{ name: "Jain Agency" }],
+    authors: [{ name: "The Jain Agency" }],
     robots: { index: true, follow: true },
     alternates: { canonical: `/projects/${projectSlug}` },
     openGraph: {
-      title: `${project.title} | Jain Agency`,
+      title: `${project.title} | The Jain Agency`,
       description: project.description,
       url: `/projects/${projectSlug}`,
-      siteName: "Jain Agency",
+      siteName: "The Jain Agency",
       type: "article",
       images: project.images[0]
         ? [

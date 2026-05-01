@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { RecruitmentForm } from "@/components/RecruitmentForm";
 
 export const metadata: Metadata = {
-  title: "Join Jain Agency",
+  title: "Join The Jain Agency",
   description:
-    "Apply for current opportunities at Jain Agency. Share your details and we will get back to you.",
+    "Apply for current opportunities at The Jain Agency. Share your details and we will get back to you.",
   keywords: [
-    "Jain Agency recruitment",
-    "jobs at Jain Agency",
+    "The Jain Agency recruitment",
+    "jobs at The Jain Agency",
     "web agency hiring India",
     "apply for web development jobs",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/recruitment" },
 };
@@ -20,7 +20,7 @@ export default function RecruitmentPage() {
   return (
     <section className="grid gap-8 lg:grid-cols-11">
       <div className="reveal space-y-5 lg:col-span-5">
-        <p className="eyebrow">Careers at Jain Agency</p>
+        <p className="eyebrow">Careers at The Jain Agency</p>
         <h1 className="section-title text-4xl sm:text-5xl">
           Build Real Business Websites With A Fast-Moving Team
         </h1>
