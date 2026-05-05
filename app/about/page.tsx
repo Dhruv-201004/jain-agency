@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { absoluteUrl, jsonLdScript, siteConfig } from "@/lib/seo";
 
 type Profile = {
   heading: string;
@@ -97,43 +96,18 @@ const teamProfiles = [
 ] satisfies Profile[];
 
 export const metadata: Metadata = {
-  title: "About Our Website Development Agency",
+  title: "About The Jain Agency",
   description:
-    "Meet The Jain Agency, a website development agency helping schools, hospitals, manufacturers, industrial companies, and private businesses grow online.",
+    "Learn how The Jain Agency helps schools, manufacturers, and industrial businesses build trust and grow online with thoughtful websites.",
   keywords: [
     "about The Jain Agency",
-    "website development agency India",
     "website development for schools in India",
-    "hospital website design India",
     "industrial website developer",
     "manufacturer business website design",
   ],
   authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About The Jain Agency | Website Development Agency",
-    description:
-      "A focused Indian website development team for schools, hospitals, manufacturers, industrial companies, and private businesses.",
-    url: "/about",
-    siteName: siteConfig.name,
-    type: "website",
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: "The Jain Agency team and website development approach",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About The Jain Agency | Website Development Agency",
-    description:
-      "A focused Indian website development team for schools, hospitals, manufacturers, industrial companies, and private businesses.",
-    images: [siteConfig.ogImage],
-  },
 };
 
 function ProfileMessage({
@@ -207,30 +181,8 @@ function ProfileMessage({
 }
 
 export default function AboutPage() {
-  const aboutJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "@id": absoluteUrl("/about#about-page"),
-    url: absoluteUrl("/about"),
-    name: "About The Jain Agency",
-    description: metadata.description,
-    isPartOf: {
-      "@id": absoluteUrl("/#website"),
-    },
-    about: {
-      "@id": absoluteUrl("/#organization"),
-    },
-    mainEntity: {
-      "@id": absoluteUrl("/#organization"),
-    },
-  };
-
   return (
     <section className="space-y-10">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLdScript(aboutJsonLd)}
-      />
       <header className="reveal grid gap-6 lg:grid-cols-10">
         <div className="space-y-4 lg:col-span-6">
           <p className="eyebrow">Our approach</p>
