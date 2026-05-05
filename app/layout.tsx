@@ -4,6 +4,12 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { AppToaster } from "@/components/AppToaster";
+import {
+  jsonLdScript,
+  organizationJsonLd,
+  siteConfig,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,45 +22,61 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://thejainagency.shop",
-  ),
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "The Jain Agency | Website Development Services",
+    default: "The Jain Agency | Premium Website Development in India",
     template: "%s | The Jain Agency",
   },
-  description:
-    "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+  description: siteConfig.description,
   keywords: [
+    "premium website development India",
     "website development for schools in India",
+    "hospital website design India",
     "industrial website developer",
     "manufacturer business website design",
     "affordable business website services India",
     "The Jain Agency",
   ],
   authors: [{ name: "The Jain Agency" }],
-  robots: { index: true, follow: true },
+  creator: "The Jain Agency",
+  publisher: "The Jain Agency",
+  applicationName: "The Jain Agency",
+  category: "Website development agency",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "The Jain Agency | Website Development Services",
-    description:
-      "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+    title: "The Jain Agency | Premium Website Development in India",
+    description: siteConfig.description,
+    url: "/",
     siteName: "The Jain Agency",
+    locale: siteConfig.locale,
     images: [
       {
-        url: "/logo.png",
+        url: siteConfig.ogImage,
         width: 1200,
-        height: 1200,
-        alt: "The Jain Agency logo",
+        height: 630,
+        alt: "The Jain Agency website development services",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Jain Agency | Website Development Services",
-    description:
-      "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
-    images: ["/logo.png"],
+    title: "The Jain Agency | Premium Website Development in India",
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   icons: {
     icon: "/logo.png",
@@ -74,6 +96,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(organizationJsonLd)}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={jsonLdScript(websiteJsonLd)}
+        />
         <Navbar />
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-10 sm:px-6 lg:px-8">
           {children}

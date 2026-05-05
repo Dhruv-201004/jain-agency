@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { RecruitmentForm } from "@/components/RecruitmentForm";
+import { absoluteUrl, jsonLdScript, siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Join The Jain Agency",
+  title: "Careers at The Jain Agency",
   description:
-    "Apply for current opportunities at The Jain Agency. Share your details and we will get back to you.",
+    "Apply for web design, development, marketing, and client communication opportunities at The Jain Agency.",
   keywords: [
     "The Jain Agency recruitment",
     "jobs at The Jain Agency",
@@ -14,11 +15,53 @@ export const metadata: Metadata = {
   authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/recruitment" },
+  openGraph: {
+    title: "Careers at The Jain Agency",
+    description:
+      "Join a fast-moving website development agency building practical business websites for Indian clients.",
+    url: "/recruitment",
+    siteName: siteConfig.name,
+    type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Careers at The Jain Agency",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Careers at The Jain Agency",
+    description:
+      "Join a fast-moving website development agency building practical business websites for Indian clients.",
+    images: [siteConfig.ogImage],
+  },
 };
 
 export default function RecruitmentPage() {
+  const recruitmentJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": absoluteUrl("/recruitment#careers-page"),
+    url: absoluteUrl("/recruitment"),
+    name: "Careers at The Jain Agency",
+    description: metadata.description,
+    isPartOf: {
+      "@id": absoluteUrl("/#website"),
+    },
+    about: {
+      "@id": absoluteUrl("/#organization"),
+    },
+  };
+
   return (
     <section className="grid gap-8 lg:grid-cols-11">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(recruitmentJsonLd)}
+      />
       <div className="reveal space-y-5 lg:col-span-5">
         <p className="eyebrow">Careers at The Jain Agency</p>
         <h1 className="section-title text-4xl sm:text-5xl">
