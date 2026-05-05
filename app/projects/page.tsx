@@ -6,7 +6,7 @@ import { getAllProjects } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Portfolio of Website Projects",
   description:
-    "Explore Jain Agency’s previous work for schools, manufacturers, and industrial businesses across India.",
+    "Explore The Jain Agency’s previous work for schools, manufacturers, and industrial businesses across India.",
   keywords: [
     "portfolio website projects",
     "previous work",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "industrial website developer",
     "manufacturer business website design",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/projects" },
 };

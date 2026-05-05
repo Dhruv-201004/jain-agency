@@ -5,14 +5,14 @@ import { ImageModal } from "@/components/ImageModal";
 export const metadata: Metadata = {
   title: "Contact Website Developer",
   description:
-    "Contact Jain Agency for affordable website development services in India for schools, manufacturers, and industrial businesses.",
+    "Contact The Jain Agency for affordable website development services in India for schools, manufacturers, and industrial businesses.",
   keywords: [
     "contact website developer",
     "affordable business website services India",
     "website development for schools in India",
     "industrial website developer",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/contact" },
 };

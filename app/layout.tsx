@@ -20,40 +20,40 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "https://thejainagency.shop",
   ),
   title: {
-    default: "Jain Agency | Website Development Services",
-    template: "%s | Jain Agency",
+    default: "The Jain Agency | Website Development Services",
+    template: "%s | The Jain Agency",
   },
   description:
-    "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+    "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
   keywords: [
     "website development for schools in India",
     "industrial website developer",
     "manufacturer business website design",
     "affordable business website services India",
-    "Jain Agency",
+    "The Jain Agency",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Jain Agency | Website Development Services",
+    title: "The Jain Agency | Website Development Services",
     description:
-      "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
-    siteName: "Jain Agency",
+      "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+    siteName: "The Jain Agency",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 1200,
-        alt: "Jain Agency logo",
+        alt: "The Jain Agency logo",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jain Agency | Website Development Services",
+    title: "The Jain Agency | Website Development Services",
     description:
-      "Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
+      "The Jain Agency builds modern websites for schools, manufacturers, and industrial businesses across India.",
     images: ["/logo.png"],
   },
   icons: {

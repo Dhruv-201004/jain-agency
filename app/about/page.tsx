@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 
+type Profile = {
+  heading: string;
+  name: string;
+  role: string;
+  imageSrc: string;
+  imageAlt: string;
+  summary: string;
+  vision: string;
+  closing: string;
+  highlights: string[];
+  principles?: string[];
+};
+
 const founderProfile = {
   heading: "Message from Our Managing Director",
   name: "Divyansh Jain",
   role: "Founder & Managing Director",
   imageSrc: "/image.jpeg",
-  imageAlt: "Divyansh Jain - Founder and Managing Director, Jain Agency",
+  imageAlt: "Divyansh Jain - Founder and Managing Director, The Jain Agency",
   summary:
-    "At Jain Agency, our vision is driven by leadership that values clarity, innovation, and long-term impact. Under the direction of Divyansh Jain, Founder & Managing Director, the agency is committed to helping businesses establish a strong and effective digital presence.",
+    "At The Jain Agency, our vision is driven by leadership that values clarity, innovation, and long-term impact. Under the direction of Divyansh Jain, Founder & Managing Director, the agency is committed to helping businesses establish a strong and effective digital presence.",
   vision:
     "With a focus on quality, strategy, and performance, Divyansh believes that every website should go beyond aesthetics and function as a powerful tool for growth. His approach emphasizes attention to detail, modern design principles, and delivering measurable results.",
   closing:
-    "Through this vision, Jain Agency continues to build meaningful partnerships and create digital experiences that truly make a difference.",
+    "Through this vision, The Jain Agency continues to build meaningful partnerships and create digital experiences that truly make a difference.",
   highlights: [
     "Clarity in communication and execution",
     "Innovation rooted in business outcomes",
@@ -23,22 +36,149 @@ const founderProfile = {
     "Business outcomes over vanity metrics",
     "Reliable support after launch",
   ],
-};
+} satisfies Profile;
+
+const teamProfiles = [
+  {
+    heading: "Message from Our Client Lead and Marketing Head",
+    name: "Ehsaas",
+    role: "Client Lead & Marketing Head",
+    imageSrc: "/ehsaas.jpg",
+    imageAlt: "Ehsaas - Client Lead and Marketing Head, The Jain Agency",
+    summary:
+      "At The Jain Agency, client relationships are built on trust, clarity, and consistent communication. As Client Lead and Marketing Head, Ehsaas focuses on understanding each client's goals and shaping strategies that help their brand connect with the right audience.",
+    vision:
+      "With an emphasis on positioning, messaging, and practical growth, Ehsaas believes every digital presence should feel clear, credible, and aligned with the client's business direction. His approach brings together marketing insight and client-first execution.",
+    closing:
+      "Through this focus, The Jain Agency continues to create stronger client partnerships and digital experiences that support long-term visibility and growth.",
+    highlights: [
+      "Client communication with clear expectations",
+      "Marketing strategy aligned with business goals",
+      "Brand messaging built for trust and visibility",
+    ],
+  },
+  {
+    heading: "Message from Our HR and Recruiting Head",
+    name: "Parth Azad",
+    role: "HR & Recruiting Head",
+    imageSrc: "/parth-azad.jpg",
+    imageAlt: "Parth Azad - HR and Recruiting Head, The Jain Agency",
+    summary:
+      "At The Jain Agency, a strong team is the foundation behind every successful project. As HR and Recruiting Head, Parth Azad focuses on building a work culture where people are selected thoughtfully, supported properly, and encouraged to grow with responsibility.",
+    vision:
+      "With a people-first mindset, Parth believes recruitment should go beyond filling roles and focus on finding individuals who bring discipline, communication, and ownership to the agency's work. His approach helps strengthen both team performance and client delivery.",
+    closing:
+      "Through this commitment, The Jain Agency continues to develop a reliable team structure that supports quality, consistency, and long-term growth.",
+    highlights: [
+      "Thoughtful hiring for reliable execution",
+      "A culture of ownership and accountability",
+      "Team growth aligned with agency standards",
+    ],
+  },
+  {
+    heading: "Message from Our Technical Support",
+    name: "Dhruv Raheja",
+    role: "Technical Support",
+    imageSrc: "/dhruv-raheja.jpg",
+    imageAlt: "Dhruv Raheja - Technical Support, The Jain Agency",
+    summary:
+      "At The Jain Agency, technical support plays an important role in keeping every website dependable after launch. As Technical Support, Dhruv Raheja focuses on solving issues clearly, maintaining performance, and helping clients feel confident with their digital systems.",
+    vision:
+      "With a practical and detail-oriented approach, Dhruv believes support should be fast, understandable, and focused on real outcomes. His work helps ensure that each website continues to function smoothly as clients grow and update their online presence.",
+    closing:
+      "Through this support, The Jain Agency continues to provide dependable service beyond delivery and build long-term confidence with every client.",
+    highlights: [
+      "Practical support after launch",
+      "Clear issue resolution and maintenance",
+      "Stable websites clients can rely on",
+    ],
+  },
+] satisfies Profile[];
 
 export const metadata: Metadata = {
-  title: "About Jain Agency",
+  title: "About The Jain Agency",
   description:
-    "Learn how Jain Agency helps schools, manufacturers, and industrial businesses build trust and grow online with thoughtful websites.",
+    "Learn how The Jain Agency helps schools, manufacturers, and industrial businesses build trust and grow online with thoughtful websites.",
   keywords: [
-    "about Jain Agency",
+    "about The Jain Agency",
     "website development for schools in India",
     "industrial website developer",
     "manufacturer business website design",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/about" },
 };
+
+function ProfileMessage({
+  profile,
+  priority = false,
+  delay = "0ms",
+}: {
+  profile: Profile;
+  priority?: boolean;
+  delay?: string;
+}) {
+  return (
+    <section
+      className="reveal-soft grid gap-6 lg:grid-cols-12"
+      style={{ animationDelay: delay }}
+    >
+      <article className="surface motion-surface rounded-3xl p-6 sm:p-8 lg:col-span-8">
+        <p className="eyebrow">{profile.heading}</p>
+        <h2 className="section-title mt-4 text-3xl">{profile.name}</h2>
+        <p className="mt-1 text-sm font-medium text-slate-600">
+          {profile.role}
+        </p>
+        <p className="section-copy mt-4 max-w-3xl leading-relaxed">
+          {profile.summary}
+        </p>
+        <p className="section-copy mt-4 max-w-3xl leading-relaxed">
+          {profile.vision}
+        </p>
+        <p className="section-copy mt-4 max-w-3xl leading-relaxed">
+          {profile.closing}
+        </p>
+
+        <div className="mt-6 grid gap-3">
+          {profile.highlights.map((item) => (
+            <div
+              key={item}
+              className="highlight-pill rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-700"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <aside className="surface motion-surface rounded-3xl p-6 lg:col-span-4">
+        <div className="profile-image-wrap overflow-hidden rounded-2xl border border-slate-200 bg-white">
+          <Image
+            src={profile.imageSrc}
+            alt={profile.imageAlt}
+            width={900}
+            height={900}
+            className="profile-image aspect-square w-full object-cover"
+            priority={priority}
+          />
+        </div>
+        {"principles" in profile ? (
+          <>
+            <h3 className="mt-6 text-base font-semibold text-slate-900">
+              Operating principles
+            </h3>
+            <ul className="mt-4 space-y-2 text-sm text-slate-700">
+              {profile.principles?.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </>
+        ) : null}
+      </aside>
+    </section>
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -47,16 +187,16 @@ export default function AboutPage() {
         <div className="space-y-4 lg:col-span-6">
           <p className="eyebrow">Our approach</p>
           <h1 className="section-title text-4xl sm:text-5xl">
-            About Jain Agency
+            About The Jain Agency
           </h1>
           <p className="section-copy max-w-3xl text-lg leading-relaxed">
-            Jain Agency is a focused web development partner helping
+            The Jain Agency is a focused web development partner helping
             organizations build digital trust. We specialize in schools,
             manufacturers, and industrial businesses where clarity, speed, and
             credibility directly influence business outcomes.
           </p>
         </div>
-        <div className="surface rounded-3xl p-6 lg:col-span-4">
+        <div className="surface motion-surface rounded-3xl p-6 lg:col-span-4">
           <p className="text-sm text-slate-500">What clients appreciate most</p>
           <ul className="mt-3 space-y-2 text-sm text-slate-700">
             <li>Intentional messaging, not generic copy</li>
@@ -83,7 +223,7 @@ export default function AboutPage() {
         ].map((item) => (
           <article
             key={item.title}
-            className="surface rounded-2xl p-6 transition hover:-translate-y-0.5"
+            className="surface motion-surface rounded-2xl p-6"
           >
             <h2 className="text-lg font-semibold text-slate-900">
               {item.title}
@@ -93,56 +233,15 @@ export default function AboutPage() {
         ))}
       </div>
 
-      <section className="reveal-delay grid gap-6 lg:grid-cols-12">
-        <article className="surface rounded-3xl p-6 sm:p-8 lg:col-span-8">
-          <p className="eyebrow">{founderProfile.heading}</p>
-          <h2 className="section-title mt-4 text-3xl">{founderProfile.name}</h2>
-          <p className="mt-1 text-sm font-medium text-slate-600">
-            {founderProfile.role}
-          </p>
-          <p className="section-copy mt-4 max-w-3xl leading-relaxed">
-            {founderProfile.summary}
-          </p>
-          <p className="section-copy mt-4 max-w-3xl leading-relaxed">
-            {founderProfile.vision}
-          </p>
-          <p className="section-copy mt-4 max-w-3xl leading-relaxed">
-            {founderProfile.closing}
-          </p>
+      <ProfileMessage profile={founderProfile} priority delay="80ms" />
 
-          <div className="mt-6 grid gap-3">
-            {founderProfile.highlights.map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-700"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <aside className="surface rounded-3xl p-6 lg:col-span-4">
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-            <Image
-              src={founderProfile.imageSrc}
-              alt={founderProfile.imageAlt}
-              width={900}
-              height={900}
-              className="h-auto w-full object-cover"
-              priority
-            />
-          </div>
-          <h3 className="text-base font-semibold text-slate-900">
-            Operating principles
-          </h3>
-          <ul className="mt-4 space-y-2 text-sm text-slate-700">
-            {founderProfile.principles.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </aside>
-      </section>
+      {teamProfiles.map((profile, index) => (
+        <ProfileMessage
+          key={profile.name}
+          profile={profile}
+          delay={`${160 + index * 80}ms`}
+        />
+      ))}
     </section>
   );
 }

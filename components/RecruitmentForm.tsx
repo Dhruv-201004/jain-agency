@@ -141,7 +141,7 @@ export function RecruitmentForm() {
 
       <label className="block space-y-2">
         <span className="text-sm font-medium text-slate-700">
-          Why do you want to join Jain Agency?
+            Why do you want to join The Jain Agency?
         </span>
         <textarea
           required

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title:
     "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
   description:
-    "Jain Agency designs affordable websites for schools, manufacturers, and industrial businesses across India to help them grow online.",
+    "The Jain Agency designs affordable websites for schools, manufacturers, and industrial businesses across India to help them grow online.",
   keywords: [
     "website development for schools in India",
     "industrial website developer",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "affordable business website services India",
     "website design India",
   ],
-  authors: [{ name: "Jain Agency" }],
+  authors: [{ name: "The Jain Agency" }],
   robots: { index: true, follow: true },
   alternates: { canonical: "/" },
   openGraph: {
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     description:
       "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
     url: "/",
-    siteName: "Jain Agency",
+    siteName: "The Jain Agency",
     type: "website",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 1200,
-        alt: "Jain Agency logo",
+        alt: "The Jain Agency logo",
       },
     ],
   },
@@ -64,7 +64,7 @@ export default async function Home() {
               Build a Website That Looks Premium and Brings Real Business
             </h1>
             <p className="section-copy max-w-2xl text-lg leading-relaxed">
-              Jain Agency designs purposeful websites for schools, hospitals,
+            The Jain Agency designs purposeful websites for schools, hospitals,
               private businesses, manufacturers, and industrial businesses with
               strong messaging, clear structure, and conversion-focused
               experiences.

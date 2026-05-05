@@ -23,7 +23,7 @@ export function Navbar() {
           href="/"
           className="text-xl font-bold tracking-tight text-slate-900"
         >
-          Jain <span className="text-blue-600">Agency</span>
+          The Jain <span className="text-blue-600">Agency</span>
         </Link>
 
         <button
