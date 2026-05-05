@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { connectDB } from "@/lib/db";
 import { getProjectSlug } from "@/lib/data";
+import { siteConfig } from "@/lib/seo";
 import { Project } from "@/models/Project";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://thejainagency.shop";
+const siteUrl = siteConfig.url.replace(/\/$/, "");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrls: MetadataRoute.Sitemap = [
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${siteUrl}/recruitment`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.8,
+      priority: 0.5,
     },
   ];
 

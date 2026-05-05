@@ -3,17 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { getFeaturedProjects } from "@/lib/data";
 import { ProjectCard } from "@/components/ProjectCard";
+import { absoluteUrl, jsonLdScript, siteConfig } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title:
-    "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
+    "Website Development for Schools, Hospitals, Manufacturers & Businesses",
   description:
-    "The Jain Agency designs affordable websites for schools, manufacturers, and industrial businesses across India to help them grow online.",
+    "Premium website development for schools, hospitals, manufacturers, industrial companies, and private businesses that need trust, speed, and real enquiries.",
   keywords: [
+    "premium website development India",
     "website development for schools in India",
+    "hospital website design India",
     "industrial website developer",
     "manufacturer business website design",
-    "affordable business website services India",
+    "business website development India",
     "website design India",
   ],
   authors: [{ name: "The Jain Agency" }],
@@ -21,28 +24,28 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title:
-      "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
+      "The Jain Agency | Premium Website Development for Indian Businesses",
     description:
-      "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
+      "Conversion-focused websites for schools, hospitals, manufacturers, industrial companies, and private businesses across India.",
     url: "/",
     siteName: "The Jain Agency",
     type: "website",
     images: [
       {
-        url: "/logo.png",
+        url: siteConfig.ogImage,
         width: 1200,
-        height: 1200,
-        alt: "The Jain Agency logo",
+        height: 630,
+        alt: "The Jain Agency website development services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "The Jain Agency | Website Development for Schools, Manufacturers & Industrial Businesses",
+      "The Jain Agency | Premium Website Development for Indian Businesses",
     description:
-      "Modern, affordable websites for schools, manufacturers, and industrial businesses serving customers across India.",
-    images: ["/logo.png"],
+      "Conversion-focused websites for schools, hospitals, manufacturers, industrial companies, and private businesses across India.",
+    images: [siteConfig.ogImage],
   },
 };
 
@@ -50,9 +53,43 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const featuredProjects = await getFeaturedProjects();
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": absoluteUrl("/#website-development-service"),
+    name: "Website development services in India",
+    serviceType: "Website design and development",
+    provider: {
+      "@id": absoluteUrl("/#organization"),
+    },
+    areaServed: siteConfig.serviceAreas,
+    audience: [
+      "Schools",
+      "Hospitals",
+      "Manufacturers",
+      "Industrial businesses",
+      "Private businesses",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Website development services",
+      itemListElement: siteConfig.services.map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service,
+        },
+      })),
+    },
+    url: absoluteUrl("/"),
+  };
 
   return (
     <div className="space-y-20 pb-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(serviceJsonLd)}
+      />
       <section className="reveal relative overflow-hidden rounded-4xl border border-blue-100 bg-white p-6 shadow-[0_30px_60px_-42px_rgba(17,24,39,0.28)] sm:p-8 lg:p-10">
         <div className="absolute -top-24 -right-20 h-72 w-72 rounded-full bg-blue-100/80 blur-3xl" />
         <div className="absolute -bottom-28 -left-24 h-80 w-80 rounded-full bg-indigo-100/70 blur-3xl" />
@@ -64,7 +101,7 @@ export default async function Home() {
               Build a Website That Looks Premium and Brings Real Business
             </h1>
             <p className="section-copy max-w-2xl text-lg leading-relaxed">
-            The Jain Agency designs purposeful websites for schools, hospitals,
+              The Jain Agency designs purposeful websites for schools, hospitals,
               private businesses, manufacturers, and industrial businesses with
               strong messaging, clear structure, and conversion-focused
               experiences.

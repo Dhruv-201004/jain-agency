@@ -3,6 +3,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getProjectById } from "@/lib/data";
 import { normalizeImageSrc } from "@/lib/image";
+import {
+  absoluteImageUrl,
+  absoluteUrl,
+  jsonLdScript,
+  siteConfig,
+} from "@/lib/seo";
 import { slugify } from "@/lib/slug";
 
 type Props = {
@@ -72,15 +78,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) {
     return {
       title: "Project Not Found",
+      robots: { index: false, follow: false },
     };
   }
 
   const projectSlug = project.slug || slugify(project.title) || id;
+  const projectImage = project.images[0]
+    ? normalizeImageSrc(project.images[0])
+    : siteConfig.ogImage;
   const keywords = [
     project.title,
     project.category,
     ...(categoryKeywords[project.category] || []),
-      "The Jain Agency",
+    "The Jain Agency",
   ];
 
   return {
@@ -96,16 +106,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `/projects/${projectSlug}`,
       siteName: "The Jain Agency",
       type: "article",
-      images: project.images[0]
-        ? [
-            {
-              url: normalizeImageSrc(project.images[0]),
-              width: 1200,
-              height: 630,
-              alt: project.title,
-            },
-          ]
-        : undefined,
+      images: [
+        {
+          url: projectImage,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} website project by The Jain Agency`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | ${project.category} Website Project`,
+      description: project.description,
+      images: [projectImage],
     },
   };
 }
@@ -118,8 +132,34 @@ export default async function ProjectDetailPage({ params }: Props) {
     notFound();
   }
 
+  const projectSlug = project.slug || slugify(project.title) || id;
+  const projectUrl = absoluteUrl(`/projects/${projectSlug}`);
+  const projectJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${projectUrl}#project`,
+    url: projectUrl,
+    name: project.title,
+    description: project.description,
+    image: project.images.map((image) => absoluteImageUrl(image)),
+    genre: `${project.category} website development`,
+    creator: {
+      "@id": absoluteUrl("/#organization"),
+    },
+    publisher: {
+      "@id": absoluteUrl("/#organization"),
+    },
+    dateCreated: project.createdAt,
+    mainEntityOfPage: projectUrl,
+    sameAs: project.websiteUrl ? [project.websiteUrl] : undefined,
+  };
+
   return (
     <article className="space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScript(projectJsonLd)}
+      />
       <header className="reveal grid gap-6 lg:grid-cols-9">
         <div className="space-y-4 lg:col-span-6">
           <p className="eyebrow">{project.category}</p>
@@ -146,7 +186,7 @@ export default async function ProjectDetailPage({ params }: Props) {
               rel="noopener noreferrer"
               className="mt-3 inline-flex text-sm font-semibold text-blue-700 hover:text-blue-600"
             >
-              Visit website ↗
+              Visit website <span aria-hidden>&rarr;</span>
             </a>
           ) : null}
         </div>
@@ -173,7 +213,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                     >
                       <Image
                         src={normalizeImageSrc(image)}
-                        alt={`${project.title} image ${index + 1}`}
+                        alt={`${project.title} website preview ${index + 1}`}
                         fill
                         sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover"
@@ -182,7 +222,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                   ) : (
                     <Image
                       src={normalizeImageSrc(image)}
-                      alt={`${project.title} image ${index + 1}`}
+                      alt={`${project.title} website preview ${index + 1}`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"

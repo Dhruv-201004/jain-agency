@@ -56,7 +56,7 @@ export function ProjectCard({ project }: Props) {
           href={`/projects/${project.slug || project.id}`}
           className="inline-flex items-center gap-1 text-sm font-semibold text-blue-700 transition hover:gap-2"
         >
-          View details <span aria-hidden>→</span>
+          View details <span aria-hidden>&rarr;</span>
         </Link>
       </div>
     </article>
